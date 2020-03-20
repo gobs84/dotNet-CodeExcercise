@@ -73,5 +73,11 @@ namespace dotNet_CodeExcercise.Services
             }
             return findStudents.OrderByDescending(student => student.TimeStamp).ToList(); ;
         }
+
+        public void DeleteStudent(string name)
+        {
+            Student student = students.StudentList.Find(x => x.Name.ToLower() == name.ToLower());
+            students.StudentList.Remove(student);
+        }
     }
 }
