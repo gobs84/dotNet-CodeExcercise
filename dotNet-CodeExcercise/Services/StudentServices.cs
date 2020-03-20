@@ -26,6 +26,33 @@ namespace dotNet_CodeExcercise.Services
             students.StudentList.Add(student);
         }
 
-        
+        public List<Student> FindStudentByName(string name)
+        {
+            List<Student> findStudents = new List<Student>();
+            foreach (Student student in students.StudentList)
+            {
+                if (Equals(student.Name.ToLower(), name.ToLower()))
+                {
+                    findStudents.Add(student);
+                }
+            }
+            
+            return findStudents;
+        }
+
+        public List<Student> FindStudentByType(string type)
+        {
+            List<Student> findStudents = new List<Student>();
+            foreach (Student student in students.StudentList)
+            {
+                if (Equals(student.Type.ToLower(), type.ToLower()))
+                {
+                    findStudents.Add(student);
+                }
+            }
+            return findStudents;
+        }
+
+
     }
 }
