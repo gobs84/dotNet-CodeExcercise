@@ -41,7 +41,8 @@ namespace dotNet_CodeExcercise
             string searchValue = args[1].Split('=')[1];
             if (args.Length > 2)
             {
-
+                string gender = args[2].Split('=')[1].ToArray()[0].ToString();
+                students = studentController.GetStudentByGenderAndType(searchValue, gender);
             }
             else if (SearchType(args[1]))
             {

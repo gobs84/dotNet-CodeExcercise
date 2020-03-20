@@ -52,5 +52,18 @@ namespace dotNet_CodeExcercise.Services
             }
             return findStudents.OrderByDescending(student => student.TimeStamp).ToList(); ;
         }
+
+        public List<Student> FindStudentByGenderAndType(string type,string gender)
+        {
+            List<Student> findStudents = new List<Student>();
+            foreach (Student student in students.StudentList)
+            {
+                if (Equals(student.Type.ToLower(), type.ToLower()) && Equals(student.Gender.ToLower(),gender.ToLower()))
+                {
+                    findStudents.Add(student);
+                }
+            }
+            return findStudents.OrderByDescending(student => student.TimeStamp).ToList(); ;
+        }
     }
 }
