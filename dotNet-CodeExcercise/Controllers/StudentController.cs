@@ -15,5 +15,10 @@ namespace dotNet_CodeExcercise.Controllers
         {
             studentServices.CreateStudent(type,name,gender,timeStamp); 
         }
+
+        public List<Student> GetStudentByName(string name)
+        {
+            return studentServices.FindStudentByName(name);
+        }
     }
 }
