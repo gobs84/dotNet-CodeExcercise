@@ -52,7 +52,5 @@ namespace dotNet_CodeExcercise.Services
             }
             return findStudents;
         }
-
-
     }
 }

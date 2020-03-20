@@ -49,7 +49,7 @@ namespace dotNet_CodeExcercise
             }
             else
             {
-
+                students = studentController.GetStudentByType(searchValue);
             }
             return students;
         }
@@ -69,7 +69,7 @@ namespace dotNet_CodeExcercise
         {
             foreach (var student in students)
             {
-                Console.WriteLine($"Type: {student.Type}; Student:{student.Name}; Gender:{student.Gender}; Timestamp:{student.TimeStamp.ToString("dd/MM/yyyy HH:mm:ss")}");
+                Console.WriteLine($"Type:{student.Type}; Student:{student.Name}; Gender:{student.Gender}; Timestamp:{student.TimeStamp.ToString("dd/MM/yyyy HH:mm:ss")}");
             }
         }
     }
