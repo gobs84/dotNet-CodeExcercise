@@ -16,14 +16,22 @@ namespace dotNet_CodeExcercise.Services
         }
         public void CreateStudent(string type, string name, string gender, DateTime timeStamp)
         {
-            Student student = new Student
+            try
             {
-                Type = type,
-                Name = name,
-                Gender = gender,
-                TimeStamp = timeStamp
-            };
-            students.StudentList.Add(student);
+                Student student = new Student
+                {
+                    Type = type,
+                    Name = name,
+                    Gender = gender,
+                    TimeStamp = timeStamp
+                };
+                students.StudentList.Add(student);
+            }
+            catch (ServiceException e)
+            {
+                throw new ServiceException($"Couldn't create Users: {e}",500);
+            }
+            
         }
 
         public List<Student> FindStudentByName(string name)
@@ -46,6 +54,19 @@ namespace dotNet_CodeExcercise.Services
             foreach (Student student in students.StudentList)
             {
                 if (Equals(student.Type.ToLower(), type.ToLower()))
+                {
+                    findStudents.Add(student);
+                }
+            }
+            return findStudents.OrderByDescending(student => student.TimeStamp).ToList(); ;
+        }
+
+        public List<Student> FindStudentByGenderAndType(string type,string gender)
+        {
+            List<Student> findStudents = new List<Student>();
+            foreach (Student student in students.StudentList)
+            {
+                if (Equals(student.Type.ToLower(), type.ToLower()) && Equals(student.Gender.ToLower(),gender.ToLower()))
                 {
                     findStudents.Add(student);
                 }

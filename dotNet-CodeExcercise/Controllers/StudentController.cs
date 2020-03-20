@@ -25,5 +25,10 @@ namespace dotNet_CodeExcercise.Controllers
         {
             return studentServices.FindStudentByType(type);
         }
+
+        public List<Student> GetStudentByGenderAndType(string type,string gender)
+        {
+            return studentServices.FindStudentByGenderAndType(type,gender);
+        }
     }
 }
