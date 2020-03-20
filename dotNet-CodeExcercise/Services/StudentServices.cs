@@ -50,7 +50,7 @@ namespace dotNet_CodeExcercise.Services
                     findStudents.Add(student);
                 }
             }
-            return findStudents.OrderBy(student => student.TimeStamp).ToList(); ;
+            return findStudents.OrderByDescending(student => student.TimeStamp).ToList(); ;
         }
     }
 }
