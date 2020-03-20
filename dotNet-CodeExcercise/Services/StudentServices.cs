@@ -16,14 +16,22 @@ namespace dotNet_CodeExcercise.Services
         }
         public void CreateStudent(string type, string name, string gender, DateTime timeStamp)
         {
-            Student student = new Student
+            try
             {
-                Type = type,
-                Name = name,
-                Gender = gender,
-                TimeStamp = timeStamp
-            };
-            students.StudentList.Add(student);
+                Student student = new Student
+                {
+                    Type = type,
+                    Name = name,
+                    Gender = gender,
+                    TimeStamp = timeStamp
+                };
+                students.StudentList.Add(student);
+            }
+            catch (ServiceException e)
+            {
+                throw new ServiceException($"Couldn't create Users: {e}",500);
+            }
+            
         }
 
         public List<Student> FindStudentByName(string name)

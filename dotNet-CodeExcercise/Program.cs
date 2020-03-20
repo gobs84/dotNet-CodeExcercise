@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using dotNet_CodeExcercise.Controllers;
 using dotNet_CodeExcercise.Services.Models;
+using dotNet_CodeExcercise.Services;
 namespace dotNet_CodeExcercise
 {
     class Program
@@ -16,43 +17,59 @@ namespace dotNet_CodeExcercise
         static void Main(string[] args)
         {
             Program program = new Program();
-            program.CreateStudents(args[0]);
+            program.CreateStudents(args);
             program.PrintStudents(program.FindStudent(args));
             Console.ReadLine();
         }
 
-        public void CreateStudents(string file)
+        public void CreateStudents(string[] args)
         {
-            string dir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            using (var reader = new StreamReader(dir + $@"\{file}"))
+            try
             {
-                while (!reader.EndOfStream)
+                string file = args[0];
+                string dir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                using (var reader = new StreamReader(dir + $@"\{file}"))
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
-                    studentController.Post(values[0], values[1], values[2], DateTime.ParseExact(values[3], "yyyyMMddHHmmss", CultureInfo.InvariantCulture));
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
+                        studentController.Post(values[0], values[1], values[2], DateTime.ParseExact(values[3], "yyyyMMddHHmmss", CultureInfo.InvariantCulture));
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
         public List<Student> FindStudent(string[] args)
         {
-            List<Student> students = new List<Student>();
-            string searchValue = args[1].Split('=')[1];
-            if (args.Length > 2)
+            try
             {
-                string gender = args[2].Split('=')[1].ToArray()[0].ToString();
-                students = studentController.GetStudentByGenderAndType(searchValue, gender);
+                List<Student> students = new List<Student>();
+                string searchValue = args[1].Split('=')[1];
+                if (args.Length > 2)
+                {
+                    string gender = args[2].Split('=')[1].ToArray()[0].ToString();
+                    students = studentController.GetStudentByGenderAndType(searchValue, gender);
+                }
+                else if (SearchType(args[1]))
+                {
+                    students = studentController.GetStudentByName(searchValue);
+                }
+                else
+                {
+                    students = studentController.GetStudentByType(searchValue);
+                }
+                return students;
             }
-            else if (SearchType(args[1]))
+            catch (Exception e)
             {
-                students = studentController.GetStudentByName(searchValue);
+                throw e;
             }
-            else
-            {
-                students = studentController.GetStudentByType(searchValue);
-            }
-            return students;
+
         }
 
         public Boolean SearchType(string search)
@@ -76,7 +93,7 @@ namespace dotNet_CodeExcercise
 
         public string Gender(string gender)
         {
-            string completeGender="Male";
+            string completeGender = "Male";
             if (Equals(gender, "F"))
             {
                 completeGender = "Female";
