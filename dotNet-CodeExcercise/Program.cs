@@ -69,8 +69,18 @@ namespace dotNet_CodeExcercise
         {
             foreach (var student in students)
             {
-                Console.WriteLine($"Type:{student.Type}; Student:{student.Name}; Gender:{student.Gender}; Timestamp:{student.TimeStamp.ToString("dd/MM/yyyy HH:mm:ss")}");
+                Console.WriteLine($"Type:{student.Type}\nStudent:{student.Name}\nGender:{Gender(student.Gender)}\nTimestamp:{student.TimeStamp.ToString("dd/MM/yyyy HH:mm:ss")}\n\n");
             }
+        }
+
+        public string Gender(string gender)
+        {
+            string completeGender="Male";
+            if (Equals(gender, "F"))
+            {
+                completeGender = "Female";
+            }
+            return completeGender;
         }
     }
 }
