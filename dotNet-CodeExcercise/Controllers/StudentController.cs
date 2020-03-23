@@ -30,5 +30,10 @@ namespace dotNet_CodeExcercise.Controllers
         {
             return studentServices.FindStudentByGenderAndType(type,gender);
         }
+
+        public void DeleteStudent(String name)
+        {
+            studentServices.DeleteStudent(name);
+        }
     }
 }
